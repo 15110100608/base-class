@@ -6,7 +6,6 @@ import com.xiaoye.baseclass.base.BaseActivity;
 import com.xiaoye.baseclass.utils.LoadDialog;
 
 public class TestActivity extends BaseActivity {
-    private LoadDialog loadDialog;
     @Override
     public int getLayoutFile() {
         return R.layout.activity_main;
@@ -14,7 +13,6 @@ public class TestActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        loadDialog=new LoadDialog(this);
         loadDialog.show();
     }
 

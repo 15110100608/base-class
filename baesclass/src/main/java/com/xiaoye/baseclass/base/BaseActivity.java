@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.xiaoye.baseclass.utils.DensityUtil;
+import com.xiaoye.baseclass.utils.LoadDialog;
 
 /**
  * 文件名：BaseActivity
@@ -16,7 +17,15 @@ import com.xiaoye.baseclass.utils.DensityUtil;
  * 时  间：2018.6.1
  */
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
-    private Intent intent;
+    /*
+     * intent传值
+     */
+    public Intent intent;
+
+    /*
+     * 加载动画
+     */
+    public LoadDialog loadDialog;
 
     /*
     * 加载布局
@@ -42,7 +51,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      * 得到intent对象
      */
     public void initOnter(){
+        //获得intent对象
         intent=getIntent();
+        //创建加载动画
+        loadDialog=new LoadDialog(this);
     }
 
     /*
