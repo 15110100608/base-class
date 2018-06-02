@@ -18,7 +18,7 @@ import com.xiaoye.baseclass.utils.DensityUtil;
  * 时  间：2018.6.1
  */
 public abstract class BaseFullActivity extends AppCompatActivity implements View.OnClickListener{
-    private Intent intent;
+    public Intent intent;
 
     /*
     * 加载布局

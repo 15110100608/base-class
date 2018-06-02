@@ -18,8 +18,8 @@ import java.util.List;
  */
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter {
     public Context context;
-    private LayoutInflater layoutInflater;
-    private List<T> list;
+    public LayoutInflater layoutInflater;
+    public List<T> list;
 
     /*
      * 传入上下文
