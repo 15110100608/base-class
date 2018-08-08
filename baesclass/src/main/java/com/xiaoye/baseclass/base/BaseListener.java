@@ -1,7 +1,7 @@
 package com.xiaoye.baseclass.base;
 
 /**
- * Created by 小烨 on 2017/11/6.
+ * Created by 小烨 on 2018/8/8.
  */
 
 public interface BaseListener<T>{

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">BaseClass</string>
+    <string name="app_name">Test</string>
+    <string name="sample_of_topbar">TopBar示例</string>
 </resources>

@@ -1,63 +1,57 @@
 package com.xiaoye.baseclass.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
-import com.xiaoye.baseclass.utils.DensityUtil;
-import com.xiaoye.baseclass.utils.LoadDialog;
+import com.gyf.barlibrary.BarHide;
+import com.gyf.barlibrary.ImmersionBar;
 
 /**
  * 文件名：BaseActivity
  * 描  述：Activity基类-普通
  * 作  者：小烨
- * 时  间：2018.6.1
+ * 时  间：2018.8.7
  */
+
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
-    /*
-     * intent传值
-     */
     public Intent intent;
+    public ImmersionBar immersionBar;
 
-    /*
-     * 加载动画
+    /**
+     * 加载布局
      */
-    public LoadDialog loadDialog;
+    abstract public @LayoutRes
+    int getLayoutFile();
 
-    /*
-    * 加载布局
-    */
-    abstract public @LayoutRes int getLayoutFile();
-
-    /*
+    /**
      * 初始化控件(findViewById)
      */
     abstract public void initView();
 
-    /*
+    /**
      * 初始化事件(setEvent)
      */
     abstract public void initEvent();
 
-    /*
+    /**
      * 初始化事件(setEvent)
      */
     abstract public void initData();
 
-    /*
+    /**
      * 得到intent对象
      */
     public void initOnter(){
-        //获得intent对象
         intent=getIntent();
-        //创建加载动画
-        loadDialog=new LoadDialog(this);
     }
 
-    /*
+    /**
      * 创建Activity和初始化
      */
     @Override
@@ -70,31 +64,95 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initOnter();
     }
 
-    /*
-     * 短时间Toast的简化
-     */
-    public void showToastShort(String text){
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
-    }
-
-    /*
-     * 长时间Toast的简化
-     */
-    public void showToastLong(String text){
-        Toast.makeText(this,text,Toast.LENGTH_LONG).show();
+    public Context getContext() {
+        return this;
     }
 
     /**
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     * 显示Toast
      */
-    public float dip2px(float dpValue){
-        return DensityUtil.dip2px(this,dpValue);
+    public void showToast(String text){
+        Toast.makeText(this,text, Toast.LENGTH_SHORT).show();
     }
 
     /**
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     * 开始新的Activity
      */
-    public float px2dip(float pxValue) {
-        return DensityUtil.px2dip(this,pxValue);
+    public void startActivity(Class<?> cls){
+        startActivity(new Intent(this,cls));
     }
+
+    /**
+     * 初始化状态栏
+     */
+    private void initImmersionBar() {
+        if (immersionBar == null) {
+            immersionBar = ImmersionBar.with(this);
+            immersionBar
+                    .keyboardEnable(true)
+                    .navigationBarWithKitkatEnable(false)
+                    .init();
+        }
+    }
+
+    /**
+     * 初始化状态栏:图片状态栏
+     * 使用“延伸TopBar”方案
+     */
+    protected void initImmersionBarForTopBar(View topBar) {
+        initImmersionBarForTopBar(topBar, true);
+    }
+
+    /**
+     * 初始化状态栏:图片状态栏
+     * 使用“延伸TopBar”方案
+     */
+    protected void initImmersionBarForTopBar(View topBar, boolean isStatusBarDarkFont) {
+        initImmersionBar();
+        float statusAlpha = isStatusBarDarkFont?0.2f:0;
+        immersionBar
+                .titleBar(topBar)
+                .statusBarDarkFont(isStatusBarDarkFont, statusAlpha)
+                .init();
+    }
+
+    /**
+     * 初始化状态栏:纯色状态栏
+     * 使用“改变状态栏颜色”方案
+     */
+    protected void initImmersionBarOfColorBar(@ColorRes int statusBarColor, boolean isStatusBarDarkFont) {
+        initImmersionBar();
+        immersionBar
+                .fitsSystemWindows(true)
+                .statusBarColor(statusBarColor)
+                .statusBarDarkFont(isStatusBarDarkFont, 0.2f)
+                .init();
+    }
+
+    /**
+     * 初始化状态栏:全屏图片
+     * 使用“透明StatusBar”方案
+     */
+    protected void initImmersionBarOfFullImage() {
+        initImmersionBar();
+        immersionBar.transparentStatusBar().init();
+    }
+
+    /**
+     * 初始化状态栏:全屏图片
+     * 不显示状态栏
+     */
+    protected void initImmersionBarOfFullImageWithOutStatusBar() {
+        initImmersionBar();
+        immersionBar.hideBar(BarHide.FLAG_HIDE_STATUS_BAR).init();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (immersionBar != null) {
+            immersionBar.destroy();
+        }
+    }
+
 }

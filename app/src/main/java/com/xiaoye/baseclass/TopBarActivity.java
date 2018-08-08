@@ -3,17 +3,20 @@ package com.xiaoye.baseclass;
 import android.view.View;
 
 import com.xiaoye.baseclass.base.BaseActivity;
-import com.xiaoye.baseclass.utils.LoadDialog;
+import com.xiaoye.baseclass.base.TopBar;
 
-public class TestActivity extends BaseActivity {
+public class TopBarActivity extends BaseActivity {
+    private TopBar topBar;
+
     @Override
     public int getLayoutFile() {
-        return R.layout.activity_main;
+        return R.layout.activity_topbar;
     }
 
     @Override
     public void initView() {
-        loadDialog.show();
+        topBar=findViewById(R.id.topbar);
+        initImmersionBarForTopBar(topBar);
     }
 
     @Override
@@ -27,7 +30,7 @@ public class TestActivity extends BaseActivity {
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
 
     }
 }

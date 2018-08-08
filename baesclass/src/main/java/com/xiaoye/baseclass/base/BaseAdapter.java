@@ -1,15 +1,11 @@
 package com.xiaoye.baseclass.base;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.xiaoye.baseclass.utils.DensityUtil;
 
 import java.util.List;
 
@@ -17,7 +13,7 @@ import java.util.List;
  * 文件名：BaseAdapter
  * 描  述：Adapter基类
  * 作  者：小烨
- * 时  间：2018.6.1
+ * 时  间：2018.8.8
  */
 public abstract class BaseAdapter<T> extends RecyclerView.Adapter {
     public Context context;
@@ -80,30 +76,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter {
     }
 
     /*
-     * 短时间Toast的简化
+     * Toast的简化
      */
-    public void showToastShort(String text){
+    public void showToast(String text){
         Toast.makeText(context,text,Toast.LENGTH_SHORT).show();
-    }
-
-    /*
-     * 长时间Toast的简化
-     */
-    public void showToastLong(String text){
-        Toast.makeText(context,text,Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
-     */
-    public float dip2px(float dpValue){
-        return DensityUtil.dip2px(context,dpValue);
-    }
-
-    /**
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
-     */
-    public float px2dip(float pxValue) {
-        return DensityUtil.px2dip(context,pxValue);
     }
 }
